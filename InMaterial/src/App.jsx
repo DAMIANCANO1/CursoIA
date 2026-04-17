@@ -3,6 +3,7 @@ import { ScrollContext } from './context/ScrollContext'
 import Header from './components/Header'
 import Intro from './components/Intro'
 import Hero from './components/Hero'
+import Footer from './components/Footer'
 import CursorTrail from './components/CursorTrail'
 import StarfieldBg from './components/StarfieldBg'
 
@@ -72,6 +73,7 @@ export default function App() {
           <Header />
           <Intro />
           <Hero />
+          <Footer />
         </main>
       </ScrollContext.Provider>
 

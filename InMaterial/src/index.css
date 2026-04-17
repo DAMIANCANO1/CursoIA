@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  --color-brand-black:    #121212;
+  --color-brand-white:    #FFFFFF;
+  --color-brand-gray:     #A0A0A0;
+  --color-brand-gray-dark:#1E1E1E;
+  --color-brand-gray-mid: #2A2A2A;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #121212;
+  color: #FFFFFF;
+  font-family: 'Space Grotesk', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Grano cinematográfico ──────────────────────────────────────────────────
+   Simula grano de película cambiando el offset de la textura de ruido en
+   steps(1): cada keyframe es un "fotograma" diferente, sin interpolación.
+   0.4s ÷ 10 frames ≈ 25fps → aspecto de película de 24 fps.
+   ────────────────────────────────────────────────────────────────────────── */
+@keyframes grano-shimmer {
+  0%   { background-position:  0%   0%;  }
+  10%  { background-position: -3%  -8%;  }
+  20%  { background-position:  7%  -3%;  }
+  30%  { background-position: -5%  12%;  }
+  40%  { background-position: 10%  -6%;  }
+  50%  { background-position: -8%   3%;  }
+  60%  { background-position:  4% -11%;  }
+  70%  { background-position: -9%   7%;  }
+  80%  { background-position:  6%  -4%;  }
+  90%  { background-position: -4%   9%;  }
+  100% { background-position:  0%   0%;  }
+}
+
+.grano-animado {
+  animation: grano-shimmer 0.4s steps(1) infinite;
+}
+
+/* ── Starfield de inversión ─────────────────────────────────────────────────
+   --star-clr  se actualiza desde JS vía StarfieldBg.jsx (un sólo suscriptor
+   al MotionValue); todas las estrellas leen la variable sin trabajo extra.
+
+   animationDelay negativo → cada estrella arranca en un punto aleatorio del
+   ciclo, dando la sensación de campo vivo desde el primer frame.
+   ────────────────────────────────────────────────────────────────────────── */
+:root {
+  --star-clr: #EAEAEA;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.02; }
+  50%       { opacity: var(--op-max, 0.5); }
+}
+
+@keyframes twinkle-y2k {
+  0%   { opacity: 0.01; transform: rotate(0deg)  scale(0.85); }
+  50%  { opacity: var(--op-max, 0.2); transform: rotate(45deg) scale(1.05); }
+  100% { opacity: 0.01; transform: rotate(90deg) scale(0.85); }
+}
+
+.estrella-punto {
+  position: absolute;
+  border-radius: 50%;
+  background-color: var(--star-clr, #EAEAEA);
+  animation: twinkle ease-in-out infinite;
+}
+
+.estrella-y2k {
+  position: absolute;
+  animation: twinkle-y2k ease-in-out infinite;
+}
+
+/* Cursor puntero mejorado en áreas interactivas */
+.cursor-crosshair { cursor: crosshair; }
